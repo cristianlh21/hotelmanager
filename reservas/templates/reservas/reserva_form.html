@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Nueva Reserva{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-primary text-white">
+        <h4>Reservar Habitación {{ habitacion.numero }}</h4>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success w-100">Confirmar Reserva</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
