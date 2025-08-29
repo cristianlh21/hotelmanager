@@ -1,15 +1,15 @@
 from django.db import models
-from django.contrib.auth.models import User
 
 class Huesped(models.Model):
-    """Modelo principal de huéspedes"""
+    """Modelo simple solo con datos personales"""
+    
     TIPO_DOCUMENTO = [
         ('dni', 'DNI'),
         ('pasaporte', 'Pasaporte'),
         ('cuit', 'CUIT'),
     ]
     
-    usuario = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
+    # Datos personales básicos
     tipo_documento = models.CharField(max_length=10, choices=TIPO_DOCUMENTO)
     numero_documento = models.CharField(max_length=20, unique=True)
     nombre = models.CharField(max_length=50)
@@ -17,13 +17,17 @@ class Huesped(models.Model):
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=20)
     fecha_nacimiento = models.DateField()
+    
+    # Dirección
     direccion = models.TextField()
     ciudad = models.CharField(max_length=50)
-    pais = models.CharField(max_length=50)
+    pais = models.CharField(max_length=50, default='Argentina')
+    
+    # Auditoría
     fecha_registro = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         db_table = 'huespedes_huesped'
     
     def __str__(self):
-        return f"{self.nombre} {self.apellido}"
+        return f"{self.nombre} {self.apellido} ({self.numero_documento})"
