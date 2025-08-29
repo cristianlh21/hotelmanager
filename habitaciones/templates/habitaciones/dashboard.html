@@ -30,7 +30,7 @@
 
       <div class="card-footer">
         {% if hab.estado == 'disponible' %}
-          <a href="{% url 'reserva_nueva' hab.id %}" class="btn btn-success btn-sm w-100">
+          <a href="{% url 'seleccionar_huesped' hab.id %}" class="btn btn-success btn-sm w-100">
             <i class="fas fa-plus"></i> Reservar
           </a>
         {% else %}

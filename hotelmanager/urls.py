@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import path
 from habitaciones.views import dashboard_recepcion
-from reservas.views import reserva_nueva
-
+from reservas.views import seleccionar_huesped, crear_huesped_y_reserva
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', dashboard_recepcion, name='dashboard_recepcion'),
-    path('reservar/<int:habitacion_id>/', reserva_nueva, name='reserva_nueva'),
+    path('reservar/<int:habitacion_id>/', seleccionar_huesped, name='seleccionar_huesped'),
+    path('reservar/<int:habitacion_id>/crear/', crear_huesped_y_reserva, name='crear_huesped_y_reserva'),
 ]

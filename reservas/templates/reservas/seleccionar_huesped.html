@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Elegir huésped - Habitación {{ habitacion.numero }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    
+    <!-- Huésped existente -->
+    <h4>Huésped existente</h4>
+    <select name="huesped_existente" class="form-select mb-3">
+        <option value="">-- Seleccionar --</option>
+        {% for h in huespedes %}
+            <option value="{{ h.id }}">{{ h.nombre }} {{ h.apellido }} ({{ h.numero_documento }})</option>
+        {% endfor %}
+    </select>
+    
+    <button type="submit" name="huesped_existente" class="btn btn-primary">Continuar con este huésped</button>
+</form>
+
+<hr>
+
+<form method="post">
+    {% csrf_token %}
+    <h4>Crear nuevo huésped</h4>
+    <button type="submit" name="crear_nuevo" class="btn btn-success">Crear nuevo huésped</button>
+</form>
+{% endblock %}
