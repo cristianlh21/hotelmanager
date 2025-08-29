@@ -5,6 +5,11 @@
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
+
+    <div class="mb-3">
+  <label class="form-label">Canal de venta</label>
+  {{ form.canal }}
+</div>
     <button type="submit" class="btn btn-success">Guardar todo</button>
 </form>
 {% endblock %}

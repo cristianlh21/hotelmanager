@@ -55,6 +55,32 @@ def crear_huesped_y_reserva(request, habitacion_id):
                     'fecha_nacimiento': form.cleaned_data['fecha_nacimiento'],
                 }
             )
+            canal = form.cleaned_data['canal']
+            tarifa = Tarifa.objects.filter(
+                tipo_habitacion=habitacion.tipo,
+                canal=canal,
+                fecha_inicio__lte=form.cleaned_data['fecha_entrada'],
+                fecha_fin__gte=form.cleaned_data['fecha_entrada'],
+                activa=True
+            ).first()
+
+            if not tarifa:
+                tarifa = habitacion.tipo  # fallback al precio base
+
+            noches = (form.cleaned_data['fecha_salida'] - form.cleaned_data['fecha_entrada']).days
+            precio_total = tarifa.precio_noche * noches
+
+            Reserva.objects.create(
+                huesped=huesped,
+                habitacion=habitacion,
+                canal=canal,
+                fecha_entrada=form.cleaned_data['fecha_entrada'],
+                fecha_salida=form.cleaned_data['fecha_salida'],
+                adultos=form.cleaned_data['adultos'],
+                ninos=form.cleaned_data['ninos'],
+                precio_total=precio_total,
+                comentarios=form.cleaned_data['comentarios']
+            )
             # Crear reserva
             Reserva.objects.create(
                 huesped=huesped,

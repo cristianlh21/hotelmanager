@@ -20,7 +20,10 @@ class Reserva(models.Model):
     fecha_salida = models.DateField()
     fecha_reserva = models.DateTimeField(auto_now_add=True)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='pendiente')
-    
+    # ... campos actuales ...
+    canal = models.ForeignKey('habitaciones.CanalVenta', on_delete=models.CASCADE, verbose_name='Canal de venta')
+    # precio_total ahora se calculará con base en la tarifa
+    precio_total = models.DecimalField(max_digits=10, decimal_places=2)
     # Información de reserva
     adultos = models.PositiveIntegerField(default=1)
     ninos = models.PositiveIntegerField(default=0)
